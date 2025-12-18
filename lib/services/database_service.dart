@@ -2,34 +2,26 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseService {
-  static final DatabaseService instance = DatabaseService._internal();
-  static Database? _database;
+  static Database? _db;
 
-  DatabaseService._internal();
-
-  factory DatabaseService() => instance;
-
-  Future<Database> get database async {
-    _database ??= await _initDB();
-    return _database!;
+  static Future<Database> get database async {
+    if (_db != null) return _db!;
+    _db = await initDB();
+    return _db!;
   }
 
-  Future<Database> _initDB() async {
+  static Future<Database> initDB() async {
     final path = join(await getDatabasesPath(), 'fitness.db');
 
-    return openDatabase(
+    return await openDatabase(
       path,
       version: 1,
       onCreate: (db, version) async {
         await db.execute('''
-          CREATE TABLE workouts (
+          CREATE TABLE users(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            userId INTEGER,
-            activityType TEXT,
-            duration INTEGER,
-            calories INTEGER,
-            notes TEXT,
-            date TEXT
+            email TEXT UNIQUE,
+            password TEXT
           )
         ''');
       },

@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../models/weekly_stats.dart';
-import '../services/statistics_service.dart';
-
 class DashboardProvider extends ChangeNotifier {
-  final StatisticsService _statsService = StatisticsService();
+  int calories = 0;
+  int seances = 0;
 
-  WeeklyStats weeklyStats = WeeklyStats.empty();
-  double weeklyGoal = 150;
+  void addCalories(int value) {
+    calories += value;
+    notifyListeners();
+  }
 
-  Future<void> loadWeeklyStats(int userId) async {
-    weeklyStats = await _statsService.getWeeklyStats(userId);
+  void addSeance() {
+    seances++;
     notifyListeners();
   }
 }
-
-

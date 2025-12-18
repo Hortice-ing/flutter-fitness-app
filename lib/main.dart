@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'app.dart';
-import 'providers/dashboard_provider.dart';
+import 'views/auth/login_page.dart';
+import 'views/auth/register_page.dart';
+import 'views/home/dashboard_page.dart';
 
-void main() {
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => DashboardProvider()),
-      ],
-      child: const MyApp(),
-    ),
-  );
+final GlobalKey<ScaffoldMessengerState> messengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(FitnessApp());
+}
+
+class FitnessApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      scaffoldMessengerKey: messengerKey, // ✅ IMPORTANT
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginPage(),
+        '/register': (context) => RegisterPage(),
+        '/dashboard': (context) => DashboardPage(),
+      },
+    );
+  }
 }
 

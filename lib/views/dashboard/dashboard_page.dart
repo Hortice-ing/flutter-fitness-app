@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../activities/activities_page.dart';
 
 class DashboardPage extends StatelessWidget {

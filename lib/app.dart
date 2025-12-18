@@ -9,11 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Fitness Log',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const DashboardPage(), // ⚡ Accès direct au Dashboard
+      home: DashboardPage(), // ❌ PAS const ici
     );
   }
 }
